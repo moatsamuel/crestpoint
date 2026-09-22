@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{%block title%}CrestPoint Clinic — Quality Healthcare, Centered Around You{%endblock%}</title>
+  <meta name="description" content="CrestPoint Clinic provides compassionate care, experienced doctors, and modern healthcare services designed around your wellbeing." />
+  <link rel="icon" type="image/png" href="images/crestpoint-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{url_for('static',filename = "css/style.css")}}" />
+</head>
+<body data-page="home">
+
+  <!-- ============ Header / Navigation ============ -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="#" class="brand">
+        <img src="{{url_for('static',filename = 'images/crestpoint-logo.png')}}" alt="CrestPoint Clinic logo" />
+        <span>CrestPoint <small>Clinic</small></span>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="/">Home</a>
+        <a href="">About</a>
+        <a href="">Services</a>
+        <a href="/doctors">Doctors</a>
+        <a href="/specialties">Specialties</a>
+        <a href="">Appointments</a>
+        <a href="/contact">Contact</a>
+
+        <!-- Mobile-only auth buttons -->
+        <div class="mobile-actions">
+          <a href="login.html" class="btn btn-outline">Login</a>
+          <a href="signup.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-sm btn-login">Login</a>
+        <a href="signup.html" class="btn btn-sm btn-primary">Sign Up</a>
+        <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  {% block main %}
+    
+    {% endblock %}
+
+  <!-- ============ Footer ============ -->
+  <footer class="site-footer">
+    <div class="container footer-bottom">
+      <span>© <span data-year>2026</span> CrestPoint Clinic. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="{{url_for('static',filename = 'js/script.js')}}"></script>
+</body>
+</html>

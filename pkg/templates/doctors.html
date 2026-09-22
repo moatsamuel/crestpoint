@@ -1,0 +1,41 @@
+{% extends "master.html" %}
+{% block title %}
+  <title>Doctors Page</title>
+
+{% endblock %}
+{% block main %}
+<main>
+  <!-- ============ Page hero ============ -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Our Team</span>
+      <h1>Doctors Who Genuinely Care</h1>
+      <p>Meet the experienced, friendly professionals who make CrestPoint feel like home.</p>
+    </div>
+  </section>
+
+  <!-- ============ Doctors grid ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Medical Team</span>
+        <h2>Meet Our Specialists</h2>
+        <p>Every doctor here is selected for both expertise and empathy.</p>
+      </div>
+      
+      <div class="grid grid-4">
+        {%for i in d%}
+        <article class="card doctor-card">
+          <div class="photo ph-a" aria-hidden="true">👩‍⚕️</div>
+          <div class="body">
+            <h3>{{i["name"]}}</h3>
+            <span class="spec">{{i["special"]}}</span>
+            <p>{{i["availability"]}}</p>
+          </div>
+        </article>
+        {%endfor%}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock%}
