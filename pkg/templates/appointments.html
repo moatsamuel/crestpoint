@@ -38,37 +38,12 @@
 
           <div class="field-row">
             <div class="field">
-              <label for="apt-email">Email Address</label>
-              <input type="email" id="apt-email" name="email" placeholder="you@example.com" required />
-            </div>
-            <div class="field">
-              <label for="apt-phone">Phone Number</label>
-              <input type="tel" id="apt-phone" name="phone" placeholder="08100000000" required />
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="apt-specialty">Specialty</label>
-              <select id="apt-specialty" name="specialty" required>
-                <option value="" selected disabled>Select a specialty</option>
-                <option>General Medicine</option>
-                <option>Cardiology</option>
-                <option>Pediatrics</option>
-                <option>Dermatology</option>
-                <option>Orthopedics</option>
-              </select>
-            </div>
-            <div class="field">
               <label for="apt-doctor">Preferred Doctor</label>
               <select id="apt-doctor" name="doctor">
                 <option value="" selected>No preference</option>
-                <option>Dr. Amelia Hart</option>
-                <option>Dr. Daniel Okafor</option>
-                <option>Dr. Sofia Reyes</option>
-                <option>Dr. James Whitfield</option>
-                <option>Dr. Priya Nair</option>
-                <option>Dr. Hannah Lee</option>
+                {%for i in d%}
+                  <option>Dr. {{i.first_name}} {{i.last_name}}</option>
+                {%endfor%}
               </select>
             </div>
           </div>

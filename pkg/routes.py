@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for, flash
 from pkg import app
-from pkg.models import db, Doctor, Specialty, Patient
+from pkg.models import db, Doctor, Specialty, Patient, Appointment
 
 
 # @app.route('/createdoc')
@@ -18,7 +18,6 @@ from pkg.models import db, Doctor, Specialty, Patient
 #     # return redirect(url_for('doctors'))
 #     return 'Added'
 
-# --- Seed specialties via terminal ---
 # @app.route('/createspec')
 # def createspec():
 #     name = input("Name: ")
@@ -49,7 +48,6 @@ def doctors():
 
 @app.route("/specialties")
 def specialties():
-    # --- Read specialties (seed / test data & query) ---
     # doctors = [{"name":"Dr David","special":"Surgeon","availability":"Available"},
     #            {"name":"Dr David Ani","special":"Dentist","availability":"Available"},
     #            {"name":"Dr Hassan","special":"Dermatology","availability":"Available"}]
@@ -169,19 +167,31 @@ def admin_delete_doctor(id):
 
     return redirect(url_for("admin_doctors"))
 
-@app.route("/appointments",methods=['POST'])
+@app.route("/appointments" ,methods=['GET','POST'])
 def appointment():
-    first_name = request.form.get('first_name')
-    last_name = request.form.get('last_name')
-    email = request.form.get('email')
-    phone = request.form.get('phone')
-    specialty = request.form.get('specialty')
-    doctor = request.form.get('doctor')
-    date = request.form.get('date')
-    time = request.form.get('time')
-    notes = request.form.get('notes')
-    id = 
-    return render_template('appointments.html')
+    if request.method == "POST":
+        first_name = request.form.get('first_name').strip()
+        last_name = request.form.get('last_name').strip()
+        # email = request.form.get('email')
+        phone = request.form.get('phone')
+        specialty = request.form.get('specialty')
+        doctor = request.form.get('doctor')
+        splitname = doctor.split('.')
+        name = splitname[1]
+        namesplit = name.split(' ')
+        date = request.form.get('date')
+        time = request.form.get('time')
+        notes = request.form.get('notes')
+        pat = Patient.query.filter(Patient.first_name == first_name, Patient.last_name== last_name ).first()
+        print(pat)
+        docid = Doctor.query.filter(Doctor.first_name == namesplit[1], Doctor.last_name== namesplit[2] ).first()
+        print(docid)
+        appoint = Appointment(patient_id=pat.id,doctor_id=docid.id,appointment_date=date,appointment_time=time,reason=notes)
+        db.session.add(appoint)
+        db.session.commit()
+    spec = Specialty.query.all()
+    doc = Doctor.query.all()   
+    return render_template('appointments.html',s=spec,d=doc)
 
 @app.route('/patients')
 def patient():

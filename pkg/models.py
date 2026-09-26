@@ -26,6 +26,9 @@ class Doctor(db.Model):
     license_no = db.Column(db.String(100),nullable=False)
     created_at = db.Column(db.DateTime,default=datetime.utcnow)
     appointments = db.relationship('Appointment',uselist = False,backref = 'doctors',cascade='all,delete-orphan')
+    def __repr__(self):
+        return f'{self.id}'
+    
     
 class Appointment(db.Model):
     __tablename__ = "appointments"
@@ -49,4 +52,5 @@ class Patient(db.Model):
     address = db.Column(db.Text)
     appointments = db.relationship('Appointment',backref = 'patients',cascade='all,delete-orphan')
     
-    
+    def __repr__(self):
+        return f'{self.id}'
