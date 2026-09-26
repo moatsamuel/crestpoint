@@ -25,10 +25,11 @@ class Doctor(db.Model):
     availability = db.Column(db.Enum('available','unavailable'),default='available')
     license_no = db.Column(db.String(100),nullable=False)
     created_at = db.Column(db.DateTime,default=datetime.utcnow)
+    appointments = db.relationship('Appointment',uselist = False,backref = 'doctors',cascade='all,delete-orphan')
     
 class Appointment(db.Model):
     __tablename__ = "appointments"
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'))
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctors.id'))
     appointment_date = db.Column(db.DateTime)
@@ -36,7 +37,7 @@ class Appointment(db.Model):
     reason = db.Column(db.Text)
     status = db.Column(db.Enum('Pending','Accepted','Rejected','Cancelled','Completed'), default='Pending')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    # doctors = db.relationship('Doctor',uselist = False,backref = 'appointments',cascade='all,delete-orphan')
+    
     
 class Patient(db.Model):
     __tablename__ = "patients"

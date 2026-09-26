@@ -1,0 +1,126 @@
+{%extends "master.html"%}
+{% block tiltle %}
+  <title>Appointment Page</title>
+{% endblock%}
+{%block main%}
+<main>
+  <!-- ============ Page hero ============ -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Appointments</span>
+      <h1>Book Your Visit</h1>
+      <p>Choose a time that suits you and we'll take care of the rest.</p>
+    </div>
+  </section>
+
+  <!-- ============ Appointment form + info ============ -->
+  <section class="section">
+    <div class="container contact-grid">
+
+      <!-- Appointment request form (frontend only — submits nowhere) -->
+      <div class="form-wrap wide" style="margin: 0; max-width: none;">
+        <div class="form-head" style="text-align: left; margin-bottom: 22px;">
+          <h1 style="font-size: 1.45rem;">Request an Appointment</h1>
+          <p>Fill in the details below — our team will confirm your visit.</p>
+        </div>
+
+        <form action="#" method="post">
+          <div class="field-row">
+            <div class="field">
+              <label for="apt-first">First Name</label>
+              <input type="text" id="apt-first" name="first_name" placeholder="FirstName" required />
+            </div>
+            <div class="field">
+              <label for="apt-last">Last Name</label>
+              <input type="text" id="apt-last" name="last_name" placeholder="LastName" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="apt-email">Email Address</label>
+              <input type="email" id="apt-email" name="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="apt-phone">Phone Number</label>
+              <input type="tel" id="apt-phone" name="phone" placeholder="08100000000" required />
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="apt-specialty">Specialty</label>
+              <select id="apt-specialty" name="specialty" required>
+                <option value="" selected disabled>Select a specialty</option>
+                <option>General Medicine</option>
+                <option>Cardiology</option>
+                <option>Pediatrics</option>
+                <option>Dermatology</option>
+                <option>Orthopedics</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="apt-doctor">Preferred Doctor</label>
+              <select id="apt-doctor" name="doctor">
+                <option value="" selected>No preference</option>
+                <option>Dr. Amelia Hart</option>
+                <option>Dr. Daniel Okafor</option>
+                <option>Dr. Sofia Reyes</option>
+                <option>Dr. James Whitfield</option>
+                <option>Dr. Priya Nair</option>
+                <option>Dr. Hannah Lee</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="apt-date">Appointment Date</label>
+              <input type="date" id="apt-date" name="date" required />
+            </div>
+            <div class="field">
+              <label for="apt-time">Appointment Time</label>
+              <select id="apt-time" name="time" required>
+                <option value="" selected disabled>Select a time</option>
+                <option>Morning (8:00 AM – 12:00 PM)</option>
+                <option>Afternoon (12:00 PM – 4:00 PM)</option>
+                <option>Evening (4:00 PM – 8:00 PM)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="apt-notes">Reason for Visit <span style="font-weight: 400; color: var(--muted);">(optional)</span></label>
+            <textarea id="apt-notes" name="notes" placeholder="Briefly describe your symptoms or reason for the visit…"></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Request Appointment</button>
+
+          <p class="form-status" role="status"></p>
+        </form>
+      </div>
+
+      <!-- Info column -->
+      <div>
+        <div class="grid" style="gap: 18px;">
+          <div class="card info-card reveal">
+            <div class="icon">🕑</div>
+            <div>
+              <h3>Clinic Hours</h3>
+              <p>Monday – Saturday: 8:00 AM – 8:00 PM<br />Sunday: Closed</p>
+            </div>
+          </div>
+          <div class="card info-card reveal">
+            <div class="icon">🔁</div>
+            <div>
+              <h3>Reschedule Anytime</h3>
+              <p>Life happens — call us at least 24 hours ahead and we'll gladly move your visit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<main>
+  <!-- ============ Footer ============ -->
+{% endblock %}

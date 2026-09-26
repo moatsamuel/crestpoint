@@ -1,6 +1,33 @@
 from flask import render_template, request, redirect, url_for, flash
 from pkg import app
-from pkg.models import db, Doctor, Specialty
+from pkg.models import db, Doctor, Specialty, Patient
+
+
+# @app.route('/createdoc')
+# def createdoc():
+#     first_name = input("Enter FirstName: ")
+#     last_name = input("Enter LastName: ")
+#     email = input("Enter Email: ")
+#     phone = input("Enter Phone No: ")
+#     specialty_id = input("Enter SpecialtyID: ")
+#     availability = input("Availability: ")
+#     license_no = input("Input Lincense No")
+#     doctor = Doctor(first_name=first_name, last_name=last_name, email=email, phone=phone, specialty_id=specialty_id, availability=availability, license_no=license_no)
+#     db.session.add(doctor)
+#     db.session.commit()
+#     # return redirect(url_for('doctors'))
+#     return 'Added'
+
+# --- Seed specialties via terminal ---
+# @app.route('/createspec')
+# def createspec():
+#     name = input("Name: ")
+#     description = input("Description: ")
+#     spec = Specialty(name=name, description=description)
+#     db.session.add(spec)
+#     db.session.commit()
+#     # return redirect(url_for('specialties'))
+#     return 'Added'
 
 @app.route("/")
 def index():
@@ -12,11 +39,21 @@ def about():
 
 @app.route("/doctors")
 def doctors():
+    # doctors = [{"name":"Dr David","special":"Surgeon","availability":"Available"},
+    #            {"name":"Dr David Ani","special":"Dentist","availability":"Available"},
+    #            {"name":"Dr Hassan","special":"Dermatology","availability":"Available"}]
+    # doctor = db.session.query(Doctor).all()
+    # doctor = db.session.query(Doctor).join(Doctor.specialties).all()
     doctor = db.session.query(Doctor).outerjoin(Doctor.specialties).all()
     return render_template("doctors.html", d=doctor)
 
 @app.route("/specialties")
 def specialties():
+    # --- Read specialties (seed / test data & query) ---
+    # doctors = [{"name":"Dr David","special":"Surgeon","availability":"Available"},
+    #            {"name":"Dr David Ani","special":"Dentist","availability":"Available"},
+    #            {"name":"Dr Hassan","special":"Dermatology","availability":"Available"}]
+    # spec = db.session.query(Specialty).all()
     spec = Specialty.query.all()
     return render_template("specialties.html", s=spec)
 
@@ -132,3 +169,28 @@ def admin_delete_doctor(id):
 
     return redirect(url_for("admin_doctors"))
 
+@app.route("/appointments",methods=['POST'])
+def appointment():
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    email = request.form.get('email')
+    phone = request.form.get('phone')
+    specialty = request.form.get('specialty')
+    doctor = request.form.get('doctor')
+    date = request.form.get('date')
+    time = request.form.get('time')
+    notes = request.form.get('notes')
+    id = 
+    return render_template('appointments.html')
+
+@app.route('/patients')
+def patient():
+    first_name = input("Enter FirstName: ")
+    last_name = input("Enter LastName: ")
+    email = input("Enter Email: ")
+    phone = input("Enter PhoneNo: ")
+    address = input("Address: ")
+    patient = Patient(first_name=first_name,last_name=last_name,email=email,phone=phone,address=address)
+    db.session.add(patient)
+    db.session.commit()
+    return 'Patient Added'
