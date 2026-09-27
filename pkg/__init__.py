@@ -6,7 +6,7 @@ from pkg import config
 
 load_dotenv()
 
-# csrf = CSRFProtect()
+csrf = CSRFProtect()
 
 def create_app():
     from pkg.models import db
@@ -17,7 +17,7 @@ def create_app():
     db.init_app(app)
     
     migrate = Migrate(app,db)
-    # csrf.init_app(app)
+    csrf.init_app(app)
     
     return app
     

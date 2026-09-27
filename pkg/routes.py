@@ -173,8 +173,6 @@ def appointment():
         first_name = request.form.get('first_name').strip()
         last_name = request.form.get('last_name').strip()
         # email = request.form.get('email')
-        phone = request.form.get('phone')
-        specialty = request.form.get('specialty')
         doctor = request.form.get('doctor')
         splitname = doctor.split('.')
         name = splitname[1]

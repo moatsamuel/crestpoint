@@ -25,6 +25,7 @@
         </div>
 
         <form action="#" method="post">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <div class="field-row">
             <div class="field">
               <label for="apt-first">First Name</label>

@@ -1,249 +1,282 @@
-{% extends "master.html" %}
-
-{% block title %}
-Admin Portal — Doctor Management | CrestPoint Clinic
-{% endblock %}
-
-{% block main %}
-<main class="admin-main">
-  <!-- ============ Admin Hero & Header ============ -->
-  <section class="admin-hero">
-    <div class="container">
-      <div class="admin-header-row">
-        <div>
-          <div class="admin-breadcrumbs">
-            <a href="/">Home</a> / <span>Admin Portal</span> / <strong>Doctor Management</strong>
-          </div>
-          <h1 class="admin-title">Doctor Management</h1>
-          <p class="admin-subtitle">Manage medical personnel, register new specialists, update clinic details, and adjust availability status.</p>
-        </div>
-        <div class="admin-header-actions">
-          <button type="button" class="btn btn-primary" id="openAddModalBtn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            Add New Doctor
-          </button>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal</title>
+  <meta name="description" content="CrestPoint Clinic provides compassionate care, experienced doctors, and modern healthcare services designed around your wellbeing." />
+  <link rel="icon" type="image/png" href="images/crestpoint-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{url_for('static',filename = "css/style.css")}}" />
+</head>
+<body>
+  <main class="admin-main">
+  <aside class="aside-class">
+    <div class = "logodiv">
+      <a href="#" class="brand">
+        <img src="{{url_for('static',filename = 'images/crestpoint-logo.png')}}" alt="CrestPoint Clinic logo" />
+        <span>CrestPoint <small>Clinic</small></span>
+      </a>
+    </div>
+    <div>
+      <div>
+        <button>Dashboard</button>
+      </div>
+      <div>
+        <button>Patient</button>
+      </div>
+      <div>
+        <button>Appointment</button>
+      </div>
+      <div>
+        <button>Doctors</button>
+      </div>
+      <div>
+        <button>
+          Logout
+        </button>
       </div>
     </div>
-  </section>
-
-  <div class="container admin-content-wrap">
-    <!-- ============ Flash Alerts ============ -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="admin-alerts">
-          {% for category, message in messages %}
-            <div class="alert-box alert-{{ category }}">
-              <div class="alert-content">
-                {% if category == 'success' %}
-                  <span class="alert-icon">✓</span>
-                {% else %}
-                  <span class="alert-icon">⚠</span>
-                {% endif %}
-                <span>{{ message }}</span>
-              </div>
-              <button type="button" class="alert-close" onclick="this.closest('.alert-box').remove();" aria-label="Close alert">&times;</button>
+  </aside>
+ <div>
+    <section class="admin-hero">
+      <div class="container">
+        <div class="admin-header-row">
+          <div>
+            <div class="admin-breadcrumbs">
+              <a href="/">Home</a> / <span>Admin Portal</span> / <strong>Doctor Management</strong>
             </div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
-
-    <!-- ============ Stat Summary Cards ============ -->
-    <section class="admin-stats-grid">
-      <div class="admin-stat-card">
-        <div class="stat-icon stat-icon-blue">👨‍⚕️</div>
-        <div class="stat-info">
-          <span class="stat-number">{{ total_doctors }}</span>
-          <span class="stat-label">Total Doctors</span>
-        </div>
-      </div>
-
-      <div class="admin-stat-card">
-        <div class="stat-icon stat-icon-green">🟢</div>
-        <div class="stat-info">
-          <span class="stat-number">{{ available_doctors }}</span>
-          <span class="stat-label">Available on Duty</span>
-        </div>
-      </div>
-
-      <div class="admin-stat-card">
-        <div class="stat-icon stat-icon-amber">⏸</div>
-        <div class="stat-info">
-          <span class="stat-number">{{ unavailable_doctors }}</span>
-          <span class="stat-label">Unavailable / Away</span>
-        </div>
-      </div>
-
-      <div class="admin-stat-card">
-        <div class="stat-icon stat-icon-purple">🏥</div>
-        <div class="stat-info">
-          <span class="stat-number">{{ specialties_count }}</span>
-          <span class="stat-label">Active Specialties</span>
+            <h1 class="admin-title">Doctor Management</h1>
+            <p class="admin-subtitle">Manage medical personnel, register new specialists, update clinic details, and adjust availability status.</p>
+          </div>
+          <div class="admin-header-actions">
+            <button type="button" class="btn btn-primary" id="openAddModalBtn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              Add New Doctor
+            </button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ Main Management Panel ============ -->
-    <section class="admin-panel">
-      <!-- Toolbar: Search & Filters -->
-      <div class="admin-toolbar">
-        <div class="search-box">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" id="doctorSearchInput" placeholder="Search by doctor name, email, or license..." aria-label="Search doctors" />
-          <button type="button" id="clearSearchBtn" class="search-clear-btn" style="display:none;" title="Clear search">&times;</button>
+    <div class="container admin-content-wrap">
+      <!-- ============ Flash Alerts ============ -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="admin-alerts">
+            {% for category, message in messages %}
+              <div class="alert-box alert-{{ category }}">
+                <div class="alert-content">
+                  {% if category == 'success' %}
+                    <span class="alert-icon">✓</span>
+                  {% else %}
+                    <span class="alert-icon">⚠</span>
+                  {% endif %}
+                  <span>{{ message }}</span>
+                </div>
+                <button type="button" class="alert-close" onclick="this.closest('.alert-box').remove();" aria-label="Close alert">&times;</button>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <!-- ============ Stat Summary Cards ============ -->
+      <section class="admin-stats-grid">
+        <div class="admin-stat-card">
+          <div class="stat-icon stat-icon-blue">👨‍⚕️</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ total_doctors }}</span>
+            <span class="stat-label">Total Doctors</span>
+          </div>
         </div>
 
-        <div class="filter-controls">
-          <div class="filter-item">
-            <label for="specialtyFilter">Specialty:</label>
-            <select id="specialtyFilter">
-              <option value="">All Specialties</option>
-              {% for spec in specialties %}
-                <option value="{{ spec.name | lower }}">{{ spec.name }}</option>
-              {% endfor %}
-            </select>
-          </div>
-
-          <div class="filter-item">
-            <label for="availabilityFilter">Status:</label>
-            <select id="availabilityFilter">
-              <option value="">All Statuses</option>
-              <option value="available">Available</option>
-              <option value="unavailable">Unavailable</option>
-            </select>
+        <div class="admin-stat-card">
+          <div class="stat-icon stat-icon-green">🟢</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ available_doctors }}</span>
+            <span class="stat-label">Available on Duty</span>
           </div>
         </div>
-      </div>
 
-      <!-- Doctors Table -->
-      <div class="admin-table-container">
-        <table class="admin-table" id="doctorsTable">
-          <thead>
-            <tr>
-              <th>Doctor</th>
-              <th>Contact Info</th>
-              <th>Specialty</th>
-              <th>License No.</th>
-              <th>Status</th>
-              <th style="text-align: right;">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% if doctors %}
-              {% for doc in doctors %}
-                <tr class="doctor-row"
-                    data-name="{{ (doc.first_name ~ ' ' ~ doc.last_name) | lower }}"
-                    data-email="{{ doc.email | lower }}"
-                    data-license="{{ doc.license_no | lower }}"
-                    data-specialty="{{ (doc.specialties.name if doc.specialties else '') | lower }}"
-                    data-availability="{{ doc.availability | lower }}">
-                  <td>
-                    <div class="doctor-profile-cell">
-                      <div class="doctor-avatar-circle">
-                        {{ doc.first_name[0] }}{{ doc.last_name[0] }}
+        <div class="admin-stat-card">
+          <div class="stat-icon stat-icon-amber">⏸</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ unavailable_doctors }}</span>
+            <span class="stat-label">Unavailable / Away</span>
+          </div>
+        </div>
+
+        <div class="admin-stat-card">
+          <div class="stat-icon stat-icon-purple">🏥</div>
+          <div class="stat-info">
+            <span class="stat-number">{{ specialties_count }}</span>
+            <span class="stat-label">Active Specialties</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Main Management Panel ============ -->
+      <section class="admin-panel">
+        <!-- Toolbar: Search & Filters -->
+        <div class="admin-toolbar">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="doctorSearchInput" placeholder="Search by doctor name, email, or license..." aria-label="Search doctors" />
+            <button type="button" id="clearSearchBtn" class="search-clear-btn" style="display:none;" title="Clear search">&times;</button>
+          </div>
+
+          <div class="filter-controls">
+            <div class="filter-item">
+              <label for="specialtyFilter">Specialty:</label>
+              <select id="specialtyFilter">
+                <option value="">All Specialties</option>
+                {% for spec in specialties %}
+                  <option value="{{ spec.name | lower }}">{{ spec.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="availabilityFilter">Status:</label>
+              <select id="availabilityFilter">
+                <option value="">All Statuses</option>
+                <option value="available">Available</option>
+                <option value="unavailable">Unavailable</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctors Table -->
+        <div class="admin-table-container">
+          <table class="admin-table" id="doctorsTable">
+            <thead>
+              <tr>
+                <th>Doctor</th>
+                <th>Contact Info</th>
+                <th>Specialty</th>
+                <th>License No.</th>
+                <th>Status</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% if doctors %}
+                {% for doc in doctors %}
+                  <tr class="doctor-row"
+                      data-name="{{ (doc.first_name ~ ' ' ~ doc.last_name) | lower }}"
+                      data-email="{{ doc.email | lower }}"
+                      data-license="{{ doc.license_no | lower }}"
+                      data-specialty="{{ (doc.specialties.name if doc.specialties else '') | lower }}"
+                      data-availability="{{ doc.availability | lower }}">
+                    <td>
+                      <div class="doctor-profile-cell">
+                        <div class="doctor-avatar-circle">
+                          {{ doc.first_name[0] }}{{ doc.last_name[0] }}
+                        </div>
+                        <div>
+                          <div class="doctor-name">Dr. {{ doc.first_name }} {{ doc.last_name }}</div>
+                          <div class="doctor-sub">ID: #DOC-{{ doc.id }}</div>
+                        </div>
                       </div>
-                      <div>
-                        <div class="doctor-name">Dr. {{ doc.first_name }} {{ doc.last_name }}</div>
-                        <div class="doctor-sub">ID: #DOC-{{ doc.id }}</div>
+                    </td>
+                    <td>
+                      <div class="contact-info-cell">
+                        <div class="contact-email">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                          <a href="mailto:{{ doc.email }}">{{ doc.email }}</a>
+                        </div>
+                        <div class="contact-phone">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                          <span>{{ doc.phone }}</span>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>
-                    <div class="contact-info-cell">
-                      <div class="contact-email">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                        <a href="mailto:{{ doc.email }}">{{ doc.email }}</a>
+                    </td>
+                    <td>
+                      {% if doc.specialties %}
+                        <span class="badge badge-specialty">{{ doc.specialties.name }}</span>
+                      {% else %}
+                        <span class="badge badge-none">Unassigned</span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <code class="license-pill">{{ doc.license_no }}</code>
+                    </td>
+                    <td>
+                      {% if doc.availability == 'available' %}
+                        <span class="badge badge-status badge-available">
+                          <span class="status-dot"></span> Available
+                        </span>
+                      {% else %}
+                        <span class="badge badge-status badge-unavailable">
+                          <span class="status-dot"></span> Unavailable
+                        </span>
+                      {% endif %}
+                    </td>
+                    <td>
+                      <div class="row-actions">
+                        <button type="button" class="btn-action btn-edit" title="Edit Doctor Details"
+                                data-id="{{ doc.id }}"
+                                data-firstname="{{ doc.first_name }}"
+                                data-lastname="{{ doc.last_name }}"
+                                data-email="{{ doc.email }}"
+                                data-phone="{{ doc.phone }}"
+                                data-specialty="{{ doc.specialty_id }}"
+                                data-availability="{{ doc.availability }}"
+                                data-license="{{ doc.license_no }}">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                          Edit
+                        </button>
+                        <button type="button" class="btn-action btn-delete" title="Delete Doctor"
+                                data-id="{{ doc.id }}"
+                                data-name="Dr. {{ doc.first_name }} {{ doc.last_name }}">
+                          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                          Delete
+                        </button>
                       </div>
-                      <div class="contact-phone">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                        <span>{{ doc.phone }}</span>
-                      </div>
-                    </div>
-                  </td>
-                  <td>
-                    {% if doc.specialties %}
-                      <span class="badge badge-specialty">{{ doc.specialties.name }}</span>
-                    {% else %}
-                      <span class="badge badge-none">Unassigned</span>
-                    {% endif %}
-                  </td>
-                  <td>
-                    <code class="license-pill">{{ doc.license_no }}</code>
-                  </td>
-                  <td>
-                    {% if doc.availability == 'available' %}
-                      <span class="badge badge-status badge-available">
-                        <span class="status-dot"></span> Available
-                      </span>
-                    {% else %}
-                      <span class="badge badge-status badge-unavailable">
-                        <span class="status-dot"></span> Unavailable
-                      </span>
-                    {% endif %}
-                  </td>
-                  <td>
-                    <div class="row-actions">
-                      <button type="button" class="btn-action btn-edit" title="Edit Doctor Details"
-                              data-id="{{ doc.id }}"
-                              data-firstname="{{ doc.first_name }}"
-                              data-lastname="{{ doc.last_name }}"
-                              data-email="{{ doc.email }}"
-                              data-phone="{{ doc.phone }}"
-                              data-specialty="{{ doc.specialty_id }}"
-                              data-availability="{{ doc.availability }}"
-                              data-license="{{ doc.license_no }}">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        Edit
-                      </button>
-                      <button type="button" class="btn-action btn-delete" title="Delete Doctor"
-                              data-id="{{ doc.id }}"
-                              data-name="Dr. {{ doc.first_name }} {{ doc.last_name }}">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                        Delete
+                    </td>
+                  </tr>
+                {% endfor %}
+              {% else %}
+                <tr id="initialEmptyRow">
+                  <td colspan="6" class="empty-table-cell">
+                    <div class="empty-state">
+                      <span class="empty-icon">👨‍⚕️</span>
+                      <h3>No Doctors Registered Yet</h3>
+                      <p>Get started by adding your first clinic doctor to CrestPoint Clinic directory.</p>
+                      <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('openAddModalBtn').click();">
+                        + Add First Doctor
                       </button>
                     </div>
                   </td>
                 </tr>
-              {% endfor %}
-            {% else %}
-              <tr id="initialEmptyRow">
+              {% endif %}
+              <tr id="noMatchRow" style="display: none;">
                 <td colspan="6" class="empty-table-cell">
                   <div class="empty-state">
-                    <span class="empty-icon">👨‍⚕️</span>
-                    <h3>No Doctors Registered Yet</h3>
-                    <p>Get started by adding your first clinic doctor to CrestPoint Clinic directory.</p>
-                    <button type="button" class="btn btn-primary btn-sm" onclick="document.getElementById('openAddModalBtn').click();">
-                      + Add First Doctor
-                    </button>
+                    <span class="empty-icon">🔍</span>
+                    <h3>No Matching Doctors Found</h3>
+                    <p>Try refining your search keyword or clearing active filters.</p>
+                    <button type="button" class="btn btn-outline btn-sm" id="resetFiltersBtn">Reset Filters</button>
                   </div>
                 </td>
               </tr>
-            {% endif %}
-            <tr id="noMatchRow" style="display: none;">
-              <td colspan="6" class="empty-table-cell">
-                <div class="empty-state">
-                  <span class="empty-icon">🔍</span>
-                  <h3>No Matching Doctors Found</h3>
-                  <p>Try refining your search keyword or clearing active filters.</p>
-                  <button type="button" class="btn btn-outline btn-sm" id="resetFiltersBtn">Reset Filters</button>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            </tbody>
+          </table>
+        </div>
 
-      <div class="admin-panel-footer">
-        <span class="results-count" id="resultsCount">Showing {{ total_doctors }} doctor(s)</span>
-      </div>
-    </section>
-  </div>
-</main>
+        <div class="admin-panel-footer">
+          <span class="results-count" id="resultsCount">Showing {{ total_doctors }} doctor(s)</span>
+        </div>
+      </section>
+    </div>
+  <div>
+  </main>
 
-<!-- ========================================================
-     MODAL: Add Doctor
-     ======================================================== -->
+
 <div class="admin-modal" id="addDoctorModal" aria-hidden="true" role="dialog" aria-labelledby="addModalTitle">
   <div class="modal-overlay" data-close-modal></div>
   <div class="modal-container">
@@ -317,9 +350,6 @@ Admin Portal — Doctor Management | CrestPoint Clinic
   </div>
 </div>
 
-<!-- ========================================================
-     MODAL: Edit Doctor Details
-     ======================================================== -->
 <div class="admin-modal" id="editDoctorModal" aria-hidden="true" role="dialog" aria-labelledby="editModalTitle">
   <div class="modal-overlay" data-close-modal></div>
   <div class="modal-container">
@@ -428,10 +458,6 @@ Admin Portal — Doctor Management | CrestPoint Clinic
     </form>
   </div>
 </div>
-
-<!-- ========================================================
-     Admin Interactive Scripting
-     ======================================================== -->
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   // Modal Helpers
@@ -602,4 +628,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 </script>
-{% endblock %}
+
+
+</body>
+</html>

@@ -543,8 +543,42 @@ ul { list-style: none; }
 .admin-main {
   background: var(--gray-bg);
   min-height: calc(100vh - 160px);
+  width: auto;
   padding-bottom: 84px;
+  display:flex;
+  flex-direction: row;
+  
 }
+.aside-class {
+  background: var(--navy);
+  width: 200px;
+  
+
+}
+.aside-class div button{
+  background:transparent;
+  color: var(--blue-light);
+  border:0px;
+  width: 200px;
+  height: 50px;
+  text-overflow: clip;
+  box-shadow: 0 10px 22px rgba(31, 111, 214, 0.30);
+}
+.aside-class div button:hover{
+  background:var(--sky)
+}
+.aside-class div a{
+  display: flex;
+  flex-direction: row;
+}
+.logodiv{
+  background: var(--gray-bg);
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 
 .admin-hero {
   background: var(--white);
