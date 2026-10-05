@@ -1,6 +1,7 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash,session
 from pkg import app
 from pkg.models import db, Doctor, Specialty, Patient, Appointment
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 # @app.route('/createdoc')
@@ -30,7 +31,9 @@ from pkg.models import db, Doctor, Specialty, Patient, Appointment
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    doctor = db.session.query(Doctor).outerjoin(Doctor.specialties).all()
+    specialty = db.session.query(Specialty).all()
+    return render_template("index.html",d = doctor,s=specialty)
 
 @app.route("/contact")
 def about():
@@ -202,3 +205,46 @@ def patient():
     db.session.add(patient)
     db.session.commit()
     return 'Patient Added'
+
+@app.route('/signup' , methods = ['GET','POST'])
+def signup():
+    if request.method == 'POST':
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        address = request.form.get('address')
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        if password == confirm_password:
+            password_hash = generate_password_hash(password)
+            patient = Patient(first_name=first_name,last_name=last_name,email=email,phone=phone,address=address
+                              ,password=password_hash)
+            db.session.add(patient)
+            db.session.commit()   
+    return render_template("signup.html")
+
+
+@app.route("/login/" , methods = ['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email').strip()
+        password = request.form.get('password')
+        if not email or not password:
+            return redirect(url_for('login'))
+
+        patient = Patient.query.filter_by(email=email).first()
+        if patient and check_password_hash(patient.password, password):
+            # session.clear()
+            session['useronline'] = patient.id
+            return redirect(url_for('index'))
+
+        return redirect(url_for('login'))
+    return render_template('login.html')
+
+@app.post('/logout/')
+def logout():
+    if session.get('useronline') != None:
+        session.pop('useronline',None)
+        session.clear()
+        return redirect(url_for('_login'))

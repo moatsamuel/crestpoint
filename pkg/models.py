@@ -49,7 +49,9 @@ class Patient(db.Model):
     last_name = db.Column(db.String(100),nullable=False)
     email = db.Column(db.String(100),nullable=False,unique=True)
     phone = db.Column(db.String(100),nullable=False)
+    dob = db.Column(db.DateTime)
     address = db.Column(db.Text)
+    password = db.Column(db.String(255),nullable=False)
     appointments = db.relationship('Appointment',backref = 'patients',cascade='all,delete-orphan')
     
     def __repr__(self):

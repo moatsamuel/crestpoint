@@ -563,9 +563,15 @@ ul { list-style: none; }
   height: 50px;
   text-overflow: clip;
   box-shadow: 0 10px 22px rgba(31, 111, 214, 0.30);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 300;
 }
 .aside-class div button:hover{
-  background:var(--sky)
+  background:var(--sky);
+  font-family: var(--font);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 .aside-class div a{
   display: flex;
