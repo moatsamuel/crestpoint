@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Portal Dashboard — CrestPoint Clinic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-gray-800 dark:text-gray-100 min-h-screen flex antialiased">
+
+  <!-- DOCTOR SIDEBAR -->
+  <aside class="w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700/60 hidden lg:flex flex-col justify-between h-screen sticky top-0 z-30">
+    <div class="p-6">
+      <a href="../index.html" class="flex items-center gap-3 mb-8">
+        <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold">
+          <i data-lucide="cross" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-black text-gray-900 dark:text-white block leading-none text-lg">CrestPoint</span>
+          <span class="text-[9px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 block">Doctor Portal</span>
+        </div>
+      </a>
+
+      <nav class="space-y-1 text-sm font-medium">
+        <a href="dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+        </a>
+        <a href="appointments.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="calendar" class="w-4 h-4"></i> Appointments
+        </a>
+        <a href="patients.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="users" class="w-4 h-4"></i> Patients
+        </a>
+        <a href="schedule.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="clock" class="w-4 h-4"></i> Schedule
+        </a>
+        <a href="documents.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Documents
+        </a>
+        <a href="profile.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="user" class="w-4 h-4"></i> Profile
+        </a>
+        <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="settings" class="w-4 h-4"></i> Settings
+        </a>
+      </nav>
+    </div>
+
+    <div class="p-4 border-t border-gray-100 dark:border-slate-700/60">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=200" class="w-9 h-9 rounded-full object-cover">
+          <div>
+            <h5 class="text-xs font-bold text-gray-900 dark:text-white">Dr. Sarah Johnson</h5>
+            <span class="text-[10px] text-gray-400">Cardiologist</span>
+          </div>
+        </div>
+        <a href="../login.html" class="p-2 text-gray-400 hover:text-red-500 rounded-lg"><i data-lucide="log-out" class="w-4 h-4"></i></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="flex-1 flex flex-col min-w-0">
+    <header class="h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700/60 px-6 flex items-center justify-between sticky top-0 z-20">
+      <h2 class="text-lg font-extrabold text-gray-900 dark:text-white">Physician Dashboard</h2>
+      <button class="theme-toggle p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-xl">
+        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+      </button>
+    </header>
+
+    <main class="p-6 sm:p-8 space-y-8 flex-1">
+      
+      <!-- DOCTOR STATISTICS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Today's Appointments</span>
+          <div class="text-3xl font-black text-gray-900 dark:text-white mt-1">8</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Total Patients</span>
+          <div class="text-3xl font-black text-gray-900 dark:text-white mt-1">246</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Pending Requests</span>
+          <div class="text-3xl font-black text-amber-600 dark:text-amber-400 mt-1">5</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Completed Appointments</span>
+          <div class="text-3xl font-black text-green-600 dark:text-green-400 mt-1">18</div>
+        </div>
+
+      </div>
+
+      <!-- SCHEDULE TIMELINE -->
+      <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700/60 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-gray-100 dark:border-slate-700 pb-4">
+          <h3 class="text-base font-bold text-gray-900 dark:text-white">Today's Consultation Schedule</h3>
+          <span class="text-xs text-indigo-600 font-semibold">September 20, 2026</span>
+        </div>
+
+        <div class="space-y-3">
+          
+          <!-- Slot 1 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 dark:bg-slate-900/60 rounded-xl border border-gray-200/80 dark:border-slate-800 gap-4">
+            <div class="flex items-center gap-4">
+              <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 w-20">09:00 AM</span>
+              <div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white">John Doe</h4>
+                <p class="text-xs text-gray-500">Childhood vaccination follow-up</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="showToast('Appointment accepted', 'success')" class="px-3 py-1.5 bg-green-600 text-white rounded-lg text-xs font-bold">Accept</button>
+              <button onclick="showToast('Reschedule modal opened', 'info')" class="px-3 py-1.5 bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200 rounded-lg text-xs font-bold">Reschedule</button>
+              <button onclick="showToast('Appointment cancelled', 'warning')" class="px-3 py-1.5 bg-red-100 text-red-600 rounded-lg text-xs font-bold">Cancel</button>
+            </div>
+          </div>
+
+          <!-- Slot 2 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 dark:bg-slate-900/60 rounded-xl border border-gray-200/80 dark:border-slate-800 gap-4">
+            <div class="flex items-center gap-4">
+              <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 w-20">09:30 AM</span>
+              <div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white">Sarah Williams</h4>
+                <p class="text-xs text-gray-500">Hypertension blood pressure monitoring</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="showToast('Consultation marked completed', 'success')" class="px-3 py-1.5 bg-indigo-600 text-white rounded-lg text-xs font-bold">Complete</button>
+            </div>
+          </div>
+
+          <!-- Slot 3 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 dark:bg-slate-900/60 rounded-xl border border-gray-200/80 dark:border-slate-800 gap-4">
+            <div class="flex items-center gap-4">
+              <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 w-20">10:00 AM</span>
+              <div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white">David Smith</h4>
+                <p class="text-xs text-gray-500">Routine cardiovascular checkup & ECG</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="showToast('Appointment accepted', 'success')" class="px-3 py-1.5 bg-green-600 text-white rounded-lg text-xs font-bold">Accept</button>
+              <button onclick="showToast('Reschedule modal opened', 'info')" class="px-3 py-1.5 bg-gray-200 dark:bg-slate-700 text-gray-700 dark:text-gray-200 rounded-lg text-xs font-bold">Reschedule</button>
+            </div>
+          </div>
+
+          <!-- Slot 4 -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-gray-50 dark:bg-slate-900/60 rounded-xl border border-gray-200/80 dark:border-slate-800 gap-4">
+            <div class="flex items-center gap-4">
+              <span class="text-xs font-bold text-indigo-600 dark:text-indigo-400 w-20">10:30 AM</span>
+              <div>
+                <h4 class="font-bold text-sm text-gray-900 dark:text-white">Michael Brown</h4>
+                <p class="text-xs text-gray-500">Post-surgical joint rehabilitation check</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="showToast('Appointment accepted', 'success')" class="px-3 py-1.5 bg-green-600 text-white rounded-lg text-xs font-bold">Accept</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

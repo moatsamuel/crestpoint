@@ -1,4 +1,4 @@
-{% extends "master.html" %}
+{% extends "main/master.html" %}
 
 {% block title %}
   <title>Login Page</title>
@@ -26,6 +26,15 @@
             <input type="password" id="login-password" name="password" placeholder="Enter your password" required />
             <button type="button" class="toggle-pass">👁</button>
           </div>
+        </div>
+        <div class="field">
+          <label for="login-role">Role</label>
+          <select name="role" id="login-role" required>
+            <option value="">Select Role</option>
+            <option value="doctor">Doctor</option>
+            <option value="patient">Patient</option>
+            <option value="admin">Admin</option>
+          </select>
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">Login</button>

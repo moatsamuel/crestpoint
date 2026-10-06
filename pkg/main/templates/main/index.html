@@ -1,4 +1,4 @@
-{% extends "master.html" %}
+{% extends "main/master.html" %}
   <!-- ============ Hero ============ -->
 {% block main %}
 <main>
@@ -12,8 +12,8 @@
           designed around your wellbeing.
         </p>
         <div class="hero-buttons">
-          <a href="{{url_for('appointment')}}" class="btn btn-primary">Book an Appointment</a>
-          <a href="{{url_for('doctors')}}" class="btn btn-outline">Meet Our Doctors</a>
+          <a href="{{url_for('patients.appointment')}}" class="btn btn-primary">Book an Appointment</a>
+          <a href="{{url_for('main.doctors')}}" class="btn btn-outline">Meet Our Doctors</a>
         </div>
       </div>
 
@@ -166,7 +166,7 @@
         <h2>Ready to Prioritize Your Health?</h2>
         <p>Book an appointment today and experience healthcare that truly puts you first.</p>
         <div class="cta-buttons">
-          <a href="{{url_for('appointment')}}" class="btn btn-light">Book an Appointment</a>
+          <a href="{{url_for('patients.appointment')}}" class="btn btn-light">Book an Appointment</a>
         </div>
       </div>
     </div>

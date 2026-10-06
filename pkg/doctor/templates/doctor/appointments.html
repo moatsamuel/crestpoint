@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Appointments — CrestPoint Clinic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-gray-800 dark:text-gray-100 min-h-screen flex antialiased">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700/60 hidden lg:flex flex-col justify-between h-screen sticky top-0 z-30">
+    <div class="p-6">
+      <a href="../index.html" class="flex items-center gap-3 mb-8">
+        <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold">
+          <i data-lucide="cross" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <span class="font-black text-gray-900 dark:text-white block leading-none text-lg">CrestPoint</span>
+          <span class="text-[9px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400 block">Doctor Portal</span>
+        </div>
+      </a>
+
+      <nav class="space-y-1 text-sm font-medium">
+        <a href="dashboard.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+        </a>
+        <a href="appointments.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold">
+          <i data-lucide="calendar" class="w-4 h-4"></i> Appointments
+        </a>
+        <a href="patients.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="users" class="w-4 h-4"></i> Patients
+        </a>
+        <a href="schedule.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="clock" class="w-4 h-4"></i> Schedule
+        </a>
+        <a href="documents.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Documents
+        </a>
+        <a href="profile.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="user" class="w-4 h-4"></i> Profile
+        </a>
+        <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
+          <i data-lucide="settings" class="w-4 h-4"></i> Settings
+        </a>
+      </nav>
+    </div>
+
+    <div class="p-4 border-t border-gray-100 dark:border-slate-700/60">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=200" class="w-9 h-9 rounded-full object-cover">
+          <div>
+            <h5 class="text-xs font-bold text-gray-900 dark:text-white">Dr. Sarah Johnson</h5>
+            <span class="text-[10px] text-gray-400">Cardiologist</span>
+          </div>
+        </div>
+        <a href="../login.html" class="p-2 text-gray-400 hover:text-red-500 rounded-lg"><i data-lucide="log-out" class="w-4 h-4"></i></a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="flex-1 flex flex-col min-w-0">
+    <header class="h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700/60 px-6 flex items-center justify-between sticky top-0 z-20">
+      <h2 class="text-lg font-extrabold text-gray-900 dark:text-white">Appointment Management</h2>
+    </header>
+
+    <main class="p-6 sm:p-8 space-y-6 flex-1">
+      <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-100 dark:border-slate-700/60 shadow-sm space-y-6">
+        
+        <div class="flex items-center justify-between border-b border-gray-100 dark:border-slate-700 pb-4">
+          <h3 class="text-base font-bold text-gray-900 dark:text-white">Scheduled Patients Roster</h3>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-gray-50 dark:bg-slate-900 text-gray-500 uppercase font-semibold border-b border-gray-200 dark:border-slate-700">
+              <tr>
+                <th class="px-6 py-3.5">Patient Name</th>
+                <th class="px-6 py-3.5">Specialty</th>
+                <th class="px-6 py-3.5">Date & Time</th>
+                <th class="px-6 py-3.5">Reason</th>
+                <th class="px-6 py-3.5">Status</th>
+                <th class="px-6 py-3.5 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="doc-appointments-tbody" class="divide-y divide-gray-100 dark:divide-slate-800">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const tbody = document.getElementById('doc-appointments-tbody');
+      const apps = JSON.parse(localStorage.getItem('crest_appointments') || '[]');
+      if (tbody) {
+        tbody.innerHTML = apps.map(a => `
+          <tr class="hover:bg-gray-50/50 dark:hover:bg-slate-800/40">
+            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white">${a.patientName}</td>
+            <td class="px-6 py-4 text-indigo-600 dark:text-indigo-400 font-semibold">${a.specialty}</td>
+            <td class="px-6 py-4 text-gray-600 dark:text-gray-300">${a.date} at ${a.time}</td>
+            <td class="px-6 py-4 text-gray-500 italic max-w-xs">${a.reason}</td>
+            <td class="px-6 py-4">
+              <span class="px-2.5 py-0.5 rounded-full font-bold text-[11px] ${a.status === 'Confirmed' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}">
+                ${a.status}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-right">
+              <button onclick="showToast('Status updated to Completed', 'success')" class="px-3 py-1 bg-indigo-600 text-white rounded-lg text-xs font-bold">Complete</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+    });
+  </script>
+</body>
+</html>

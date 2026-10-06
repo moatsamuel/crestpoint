@@ -25,21 +25,21 @@
         <a href="/">Home</a>
         <a href="">About</a>
         <a href="">Services</a>
-        <a href="{{url_for('doctors')}}">Doctors</a>
-        <a href="{{url_for('specialties')}}">Specialties</a>
-        <a href="{{url_for('appointment')}}">Appointments</a>
-        <a href="{{url_for('about')}}">Contact</a>
+        <a href="{{url_for('main.doctors')}}">Doctors</a>
+        <a href="{{url_for('main.specialties')}}">Specialties</a>
+        <a href="{{url_for('patients.appointment')}}">Appointments</a>
+        <a href="{{url_for('main.about')}}">Contact</a>
 
         <!-- Mobile-only auth buttons -->
         <div class="mobile-actions">
           <a href="login.html" class="btn btn-outline">Login</a>
-          <a href="{{url_for('signup')}}" class="btn btn-primary">Sign Up</a>
+          <a href="{{url_for('patients.signup')}}" class="btn btn-primary">Sign Up</a>
         </div>
       </nav>
 
       <div class="nav-actions">
-        <a href="{{url_for('login')}}" class="btn btn-sm btn-login">Login</a>
-        <a href="{{url_for('signup')}}" class="btn btn-sm btn-primary">Sign Up</a>
+        <a href="{{url_for('main.login')}}" class="btn btn-sm btn-login">Login</a>
+        <a href="{{url_for('patients.signup')}}" class="btn btn-sm btn-primary">Sign Up</a>
         <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>

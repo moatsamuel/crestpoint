@@ -24,6 +24,7 @@ class Doctor(db.Model):
     specialty_id = db.Column(db.Integer,db.ForeignKey('specialties.id'))
     availability = db.Column(db.Enum('available','unavailable'),default='available')
     license_no = db.Column(db.String(100),nullable=False)
+    password = db.Column(db.String(255),nullable=False)
     created_at = db.Column(db.DateTime,default=datetime.utcnow)
     appointments = db.relationship('Appointment',uselist = False,backref = 'doctors',cascade='all,delete-orphan')
     def __repr__(self):
@@ -54,5 +55,15 @@ class Patient(db.Model):
     password = db.Column(db.String(255),nullable=False)
     appointments = db.relationship('Appointment',backref = 'patients',cascade='all,delete-orphan')
     
+    def __repr__(self):
+        return f'{self.id}'
+    
+class User(db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer,primary_key=True,autoincrement=True)
+    email = db.Column(db.String(100),nullable=False,unique=True)
+    password = db.Column(db.String(255),nullable=False)
+    role = db.Column(db.String(100),nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
     def __repr__(self):
         return f'{self.id}'

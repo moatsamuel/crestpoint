@@ -453,6 +453,11 @@ ul { list-style: none; }
   text-align: center;
 }
 .form-status.show { display: block; }
+.form-status.error {
+  background: #fff1f1;
+  border-color: #f1c4c4;
+  color: #a12632;
+}
 
 /* Auth pages use a single centered .form-wrap card */
 
@@ -1262,3 +1267,34 @@ ul { list-style: none; }
   }
 }
 
+.password-requirements {
+  display: grid;
+  gap: 5px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #f7fafd;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.password-requirements p {
+  margin: 0;
+}
+
+.password-requirements > p:first-child {
+  margin-bottom: 2px;
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.password-rule {
+  color: #8a5360;
+  transition: color 160ms ease;
+}
+
+.password-rule.valid {
+  color: #18734a;
+  font-weight: 600;
+}
