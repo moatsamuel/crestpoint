@@ -1,33 +1,37 @@
-from flask import Blueprint,render_template,request,redirect,url_for
+from flask import Blueprint,render_template,request,redirect,url_for,flash
 # from pkg import app
 from pkg.models import db, Doctor, Specialty, Patient, Appointment,User
 from werkzeug.security import check_password_hash, generate_password_hash
 
 admin = Blueprint('admin',__name__,template_folder='templates',static_folder='static')
 
-@admin.route("/")
+admin.route("/")
 def admin_home():
-    return render_template('admin/admin_doctors.html')
+    return redirect(url_for("admin.admin_doctors"))
 
-@admin.route("/admin")
-@admin.route("/admin/doctors")
+
+@admin.route("/doctors")
 def admin_doctors():
+    # if not session.get("admin_online"):          # adjust to your admin login
+    #     return redirect(url_for("admin.admin_login"))
+
     doctors_list = Doctor.query.order_by(Doctor.id.desc()).all()
     specialties_list = Specialty.query.order_by(Specialty.name.asc()).all()
 
     total_doctors = len(doctors_list)
-    available_doctors = sum(1 for d in doctors_list if d.availability == 'available')
-    unavailable_doctors = total_doctors - available_doctors
-    specialties_count = len(specialties_list)
+    available_doctors = sum(
+        1 for d in doctors_list
+        if (d.availability or "").strip().lower() == "available"
+    )
 
     return render_template(
-        "admin_doctors.html",
+        "admin/admin_doctors.html",
         doctors=doctors_list,
         specialties=specialties_list,
         total_doctors=total_doctors,
         available_doctors=available_doctors,
-        unavailable_doctors=unavailable_doctors,
-        specialties_count=specialties_count
+        unavailable_doctors=total_doctors - available_doctors,
+        specialties_count=len(specialties_list),
     )
 
 @admin.route("/admin/doctor/add", methods=["POST"])

@@ -49,7 +49,11 @@ def login():
         if user and check_password_hash(user.password, password):
             # session.clear()
             session['useronline'] = user.id
-            return redirect(url_for('index'))
+            if role == 'doctor':
+                return redirect(url_for('doctors.doctors_dashboard'))
+            if role == 'patient':
+                return redirect(url_for('main.index'))
+            return redirect(url_for('main.index'))
 
         return redirect(url_for('login'))
     return render_template('main/login.html')
