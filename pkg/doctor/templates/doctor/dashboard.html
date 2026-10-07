@@ -48,7 +48,10 @@
         <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-50">
           <i data-lucide="settings" class="w-4 h-4"></i> Settings
         </a>
-      </nav>
+        <form method="POST" action="{{ url_for('main.logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="admin-nav-link">Logout</button>
+        </form>
     </div>
 
     <div class="p-4 border-t border-gray-100 dark:border-slate-700/60">

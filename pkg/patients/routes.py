@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,request,redirect,url_for
+from flask import Blueprint,render_template,request,redirect, session,url_for
 # from pkg import app
 from pkg.models import db, Doctor, Specialty, Patient, Appointment,User
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -10,31 +10,33 @@ patients = Blueprint('patients',__name__,template_folder='templates',static_fold
 
 @patients.route("/")
 def patients_home():
-    return render_template('main.main/index.html')
+    return render_template('patients/index.html')
 
 @patients.route("/appointments" ,methods=['GET','POST'])
 def appointment():
-    if request.method == "POST":
-        first_name = request.form.get('first_name').strip()
-        last_name = request.form.get('last_name').strip()
-        # email = request.form.get('email')
-        doctor = request.form.get('doctor')
-        splitname = doctor.split('.')
-        name = splitname[1]
-        namesplit = name.split(' ')
-        date = request.form.get('date')
-        time = request.form.get('time')
-        notes = request.form.get('notes')
-        pat = Patient.query.filter(Patient.first_name == first_name, Patient.last_name== last_name ).first()
-        print(pat)
-        docid = Doctor.query.filter(Doctor.first_name == namesplit[1], Doctor.last_name== namesplit[2] ).first()
-        print(docid)
-        appoint = Appointment(patient_id=pat.id,doctor_id=docid.id,appointment_date=date,appointment_time=time,reason=notes)
-        db.session.add(appoint)
-        db.session.commit()
-    spec = Specialty.query.all()
-    doc = Doctor.query.all()   
-    return render_template('patients/appointments.html',s=spec,d=doc)
+    if session.get('role') == 'patient':
+        if request.method == "POST":
+            first_name = request.form.get('first_name').strip()
+            last_name = request.form.get('last_name').strip()
+            # email = request.form.get('email')
+            doctor = request.form.get('doctor')
+            splitname = doctor.split('.')
+            name = splitname[1]
+            namesplit = name.split(' ')
+            date = request.form.get('date')
+            time = request.form.get('time')
+            notes = request.form.get('notes')
+            pat = Patient.query.filter(Patient.first_name == first_name, Patient.last_name== last_name ).first()
+            print(pat)
+            docid = Doctor.query.filter(Doctor.first_name == namesplit[1], Doctor.last_name== namesplit[2] ).first()
+            print(docid)
+            appoint = Appointment(patient_id=pat.id,doctor_id=docid.id,appointment_date=date,appointment_time=time,reason=notes)
+            db.session.add(appoint)
+            db.session.commit()
+        spec = Specialty.query.all()
+        doc = Doctor.query.all()   
+        return render_template('patients/appointments.html',s=spec,d=doc)
+    return redirect(url_for('main.login'))
 
 @patients.route('/patients')
 def patient():

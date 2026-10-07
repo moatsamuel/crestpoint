@@ -1,0 +1,36 @@
+{# Shared admin sidebar. Set `active_page` before including:
+   {% set active_page = 'dashboard' %}{% include 'admin/_sidebar.html' %}
+   To add or change a link, edit the nav_items list below (one place for every page). #}
+{% set nav_items = [
+  ('dashboard',    'Dashboard',   '/admin/dashboard'),
+  ('patients',     'Patient',     '/admin/patients'),
+  ('appointments', 'Appointment', '/admin/appointments'),
+  ('doctors',      'Doctors',     '/admin/doctors'),
+] %}
+<style>
+  .admin-nav { display: flex; flex-direction: column; gap: 6px; padding: 12px; }
+  .admin-nav-link {
+    display: block; padding: 10px 14px; border-radius: 10px;
+    color: inherit; text-decoration: none; font-weight: 500;
+  }
+  .admin-nav-link:hover { background: rgba(0, 0, 0, .06); }
+  .admin-nav-link.active { background: #2563eb; color: #fff; }
+</style>
+<aside class="aside-class">
+  <div class="logodiv">
+    <a href="/admin/dashboard" class="brand">
+      <img src="{{ url_for('static', filename='images/crestpoint-logo.png') }}" alt="CrestPoint Clinic logo" />
+      <span>CrestPoint <small>Clinic</small></span>
+    </a>
+  </div>
+  <nav class="admin-nav">
+    {% for key, label, href in nav_items %}
+    <a href="{{ href }}" class="admin-nav-link{% if active_page|default('') == key %} active{% endif %}">{{ label }}</a>
+    {% endfor %}
+    <form></form>
+    <form method="post" action="{{ url_for('main.logout') }}">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button type="submit" class="admin-nav-link">Logout</button>
+    </form>
+  </nav>
+</aside>

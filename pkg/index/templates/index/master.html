@@ -32,19 +32,14 @@
 
         <!-- Mobile-only auth buttons -->
         <div class="mobile-actions">
-          <form action="{{url_for('main.logout')}}" method="post">
-            <button class="btn btn-primary">Log Out</button>
-          </form>
-          <!-- <a href="{{url_for('main.logout')}}" class="btn btn-primary">Log Out</a> -->
+          <a href="login.html" class="btn btn-outline">Login</a>
+          <a href="{{url_for('patients.signup')}}" class="btn btn-primary">Sign Up</a>
         </div>
       </nav>
 
       <div class="nav-actions">
-        <form action="{{url_for('main.logout')}}" method="post">
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-            <button class="btn btn-primary">Log Out</button>
-          </form>
-        <!-- <a href="{{url_for('main.logout')}}" class="btn btn-sm btn-primary">Log Out</a> -->
+        <a href="{{url_for('main.login')}}" class="btn btn-sm btn-login">Login</a>
+        <a href="{{url_for('patients.signup')}}" class="btn btn-sm btn-primary">Sign Up</a>
         <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>

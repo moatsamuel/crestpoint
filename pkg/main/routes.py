@@ -47,15 +47,20 @@ def login():
 
         user = User.query.filter_by(email=email, role=role).first()
         if user and check_password_hash(user.password, password):
-            # session.clear()
-            session['useronline'] = user.id
+            session.clear()
+            # session['useronline'] = user.id
             if role == 'doctor':
+                session["role"] = "doctor"
                 return redirect(url_for('doctors.doctors_dashboard'))
             if role == 'patient':
-                return redirect(url_for('main.index'))
+                session["role"] = "patient"
+                return redirect(url_for('patients.patients_home'))
+            if role == 'admin':
+                session["role"] = "admin"
+                return redirect(url_for('admin.admin_home'))
             return redirect(url_for('main.index'))
 
-        return redirect(url_for('login'))
+    #return redirect(url_for('main.login'))
     return render_template('main/login.html')
 
 @main.post('/logout/')
@@ -63,4 +68,5 @@ def logout():
     if session.get('useronline') != None:
         session.pop('useronline',None)
         session.clear()
-        return redirect(url_for('_login'))
+        return redirect(url_for('main.login'))
+    return redirect(url_for('main.login'))

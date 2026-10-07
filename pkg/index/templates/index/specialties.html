@@ -1,0 +1,38 @@
+{% extends "main/master.html" %}
+
+{% block title %}
+  <title>Specialties Page</title>
+{% endblock %}
+{% block main %}
+<main>
+  <!-- ============ Page hero ============ -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Specialties</span>
+      <h1>Expert Care in Every Field</h1>
+      <p>Six core specialties, one shared standard of excellence.</p>
+    </div>
+  </section>
+
+  <!-- ============ Specialties grid ============ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Departments</span>
+        <h2>Our Medical Specialties</h2>
+        <p>Specialist-led departments equipped with modern technology and supported by caring staff.</p>
+      </div>
+
+      <div class="grid grid-3">
+        {%for i in s%}
+        <article class="card specialty-card reveal">
+          <div class="icon">❤️</div>
+          <h3>{{i.name}}</h3>
+          <h4>{{i.description}}</h4>
+        </article>
+        {%endfor%}
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

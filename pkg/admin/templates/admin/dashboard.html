@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — CrestPoint Clinic</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-gray-800 dark:text-gray-100 min-h-screen flex antialiased">
+
+  {% set active_page = 'dashboard' %}
+  {% include 'admin/_sidebar.html' %}
+
+  <!-- MAIN -->
+  <div class="flex-1 flex flex-col min-w-0">
+    <header class="h-16 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700/60 px-6 flex items-center justify-between sticky top-0 z-20">
+      <h2 class="text-lg font-extrabold text-gray-900 dark:text-white">System Executive Dashboard</h2>
+      <button class="theme-toggle p-2 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-slate-700 rounded-xl">
+        <i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i>
+        <i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i>
+      </button>
+    </header>
+
+    <main class="p-6 sm:p-8 space-y-8 flex-1">
+      
+      <!-- ADMIN STATS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Total Patients</span>
+          <div class="text-3xl font-black text-gray-900 dark:text-white mt-1">10,248</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Total Doctors</span>
+          <div class="text-3xl font-black text-indigo-600 dark:text-indigo-400 mt-1">52</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Appointments Today</span>
+          <div class="text-3xl font-black text-green-600 dark:text-green-400 mt-1">128</div>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm">
+          <span class="text-xs text-gray-400 uppercase font-semibold">Pending Requests</span>
+          <div class="text-3xl font-black text-amber-600 dark:text-amber-400 mt-1">24</div>
+        </div>
+
+      </div>
+
+      <!-- VISUAL ANALYTICS CHARTS -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <div class="lg:col-span-8 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm space-y-4">
+          <div class="flex items-center justify-between">
+            <h3 class="text-base font-bold text-gray-900 dark:text-white">Monthly Appointment Growth</h3>
+            <span class="text-xs text-green-600 font-semibold">+18.4% this month</span>
+          </div>
+          <div id="appointments-chart">
+            <!-- Chart bar graph injected by js/dashboard.js -->
+          </div>
+        </div>
+
+        <div class="lg:col-span-4 bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700/60 shadow-sm space-y-4">
+          <h3 class="text-base font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-slate-700 pb-3">Department Breakdown</h3>
+          <div class="space-y-3 text-xs">
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Cardiology</span>
+                <span class="font-bold">32%</span>
+              </div>
+              <div class="w-full h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-full bg-indigo-600 w-[32%]"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Pediatrics</span>
+                <span class="font-bold">24%</span>
+              </div>
+              <div class="w-full h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-full bg-blue-500 w-[24%]"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>Dermatology</span>
+                <span class="font-bold">20%</span>
+              </div>
+              <div class="w-full h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-full bg-purple-500 w-[20%]"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between mb-1">
+                <span>General Medicine</span>
+                <span class="font-bold">24%</span>
+              </div>
+              <div class="w-full h-2 bg-gray-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                <div class="h-full bg-teal-500 w-[24%]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
